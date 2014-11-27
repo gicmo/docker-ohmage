@@ -82,8 +82,11 @@ RUN mkdir -p /opt/ohmage/logs/audits/
 
 chown tomcat:tomcat -R /opt/ohmage/
 ADD ./webapp-ohmage-2.16-no_ssl.war /usr/local/tomcat/webapps/app.war
+ADD ./MobilizeWeb-nossl.war /usr/local/tomcat/webapps/ohmage.war
+
 chown tomcat:tocat -R /usr/local/tomcat/
 ADD ./sql.zip /tmp/sql.zip
+
 
 WORKDIR /tmp
 RUN unzip /tmp/sql.zip
