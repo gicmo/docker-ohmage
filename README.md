@@ -6,9 +6,11 @@ docker-ohmage
 Following components need to be added before building:
 * sql.zip
 * webapp-ohmage-2.16-no_ssl.war
+* MobilizeWeb-nossl.war
 
 sql.zip is the sql folder from the ohmage-server repository zipped,
-and webapp-ohmage-2.16-no_ssl.war is the compiled webapp.
+and webapp-ohmage-2.16-no_ssl.war is the compiled server webapp,
+MobilizeWeb-nossl.war is the compiled gwt based frontend
 
 Building...
 ```shell
