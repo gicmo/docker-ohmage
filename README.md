@@ -24,4 +24,19 @@ docker start ohmage-docker
 ```
 
 Afterwards you should be able to connect to port 8080 of the 
-machine that is running docker.
+machine that is running docker. The frontend is currently
+located in the `ohmage` subfolder. For docker running on
+on the same host the url would be:
+http://localhost:8080/ohmage
+
+The admin user is `ohmage.admin` and the password can be obtained
+from the logs:
+
+```shell
+docker logs ohmage-docker
+[...]
+mysql root password: weegh3Shinoo
+ohmage admin userpw: aeW8Aej0aeth
+[...]
+```
+
