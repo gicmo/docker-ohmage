@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 # Basic Requirements
-RUN apt-get -y install mysql-server mysql-client curl git unzip python-setuptools pwgen
+RUN apt-get -y install mysql-server mysql-client curl git unzip python-setuptools pwgen python-bcrypt
 
 ### expose mysql to the world
 RUN sed -i -e"s/^bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/" /etc/mysql/my.cnf
