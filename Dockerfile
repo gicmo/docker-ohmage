@@ -115,10 +115,7 @@ RUN mkdir /opt/ohmage/userdata/documents
 RUN mkdir /opt/ohmage/userdata/audio/
 RUN mkdir /opt/ohmage/userdata/video/
 RUN mkdir -p /opt/ohmage/logs/audits/
-
 RUN chown tomcat:tomcat -R /opt/ohmage/
-ADD ./webapp-ohmage-2.16-no_ssl.war /usr/local/tomcat/webapps/app.war
-ADD ./MobilizeWeb-nossl.war /usr/local/tomcat/webapps/ohmage.war
 
 RUN chown tomcat:tomcat -R /usr/local/tomcat/
 ADD ./sql.zip /tmp/sql.zip
@@ -136,6 +133,10 @@ RUN chmod 755 /start.sh
 
 ADD ./setup.sh /setup.sh
 RUN chmod 755 /setup.sh
+
+# deploy the ohmage webapp
+ADD ./ohmage.war /usr/local/tomcat/webapps/ohmage.war
+RUN chown tomcat:tomcat -R /usr/local/tomcat/webapps
 
 WORKDIR /
 EXPOSE 3306
