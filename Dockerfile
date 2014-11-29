@@ -123,9 +123,12 @@ ADD ./MobilizeWeb-nossl.war /usr/local/tomcat/webapps/ohmage.war
 RUN chown tomcat:tomcat -R /usr/local/tomcat/
 ADD ./sql.zip /tmp/sql.zip
 
+ADD ./mongo.zip /tmp/mongo.zip 
 
 WORKDIR /tmp
 RUN unzip /tmp/sql.zip
+RUN unzip /tmp/mongo.zip
+RUN chown mongodb:mongodb -R /tmp/mongo
 
 ### finally ...
 ADD ./start.sh /start.sh

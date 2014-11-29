@@ -19,6 +19,12 @@ echo ohmage admin userpw: $OHMAGE_PW
 echo $MYSQL_PASSWORD > /mysql-root-pw.txt
 echo $OHMAGE_PW > /ohmage-admin-pw.txt
 
+# restore mongodb
+gosu mongodb /usr/local/bin/mongod &
+sleep 4s
+gosu mongodb mongorestore /tmp/mongo/ohmage
+mongod --shutdown
+
 /usr/bin/mysqld_safe & 
 sleep 10s
 
@@ -32,6 +38,7 @@ for sql_file in `ls /tmp/sql/settings/*.sql`; do mysql -uroot -p$MYSQL_PASSWORD 
 
 mysql -uroot -p$MYSQL_PASSWORD $OHMAGE_DB < /tmp/sql/preferences/default_preferences.sql
 mysql -uroot -p$MYSQL_PASSWORD $OHMAGE_DB -e "UPDATE user set password='$OHMAGE_PWCRYPT' where username='ohmage.admin';"
+mysql -uroot -p$MYSQL_PASSWORD $OHMAGE_DB -e "UPDATE user set new_account=false where username='ohmage.admin';"
 mysql -uroot -p$MYSQL_PASSWORD $OHMAGE_DB -e "UPDATE user set new_account=false where username='ohmage.admin';"
 
 #the ohmage database user
