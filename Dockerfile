@@ -9,7 +9,7 @@ RUN apt-get update
 RUN apt-get -y upgrade
 
 # Basic Requirements
-RUN apt-get -y install curl git unzip python-setuptools pwgen python-bcrypt
+RUN apt-get -y install curl git unzip python-setuptools pwgen python-bcrypt nginx
 
 ### Tomcat
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
@@ -113,9 +113,12 @@ RUN mkdir /opt/ohmage/userdata/audio/
 RUN mkdir /opt/ohmage/userdata/video/
 RUN mkdir -p /opt/ohmage/logs/audits/
 RUN chown tomcat:tomcat -R /opt/ohmage/
-
 RUN chown tomcat:tomcat -R /usr/local/tomcat/
 
+ADD ./ohmage.ngnix.conf /etc/nginx/sites-available/default
+RUN echo "daemon off;" >> /etc/nginx/nginx.conf
+RUN mkdir -p /var/www/ohmage
+RUN chown -R www-data:www-data /var/www/ohmage
 
 ADD ./mongo.zip /tmp/mongo.zip 
 
@@ -143,5 +146,6 @@ RUN chown tomcat:tomcat -R /usr/local/tomcat/webapps
 WORKDIR /
 EXPOSE 3306
 EXPOSE 8080
+EXPOSE 80
 
 CMD ["/bin/bash", "/start.sh"]
