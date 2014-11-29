@@ -135,6 +135,12 @@ ADD ./setup.sh /setup.sh
 RUN chmod 755 /setup.sh
 
 # deploy the ohmage webapp
+RUN mkdir /var/log/ohmage
+RUN chown tomcat:tomcat /var/log/ohmage
+RUN mkdir /etc/ohmage
+ADD ./log4j2.xml /etc/ohmage/log4j2.xml
+ADD ./ohmage.conf /etc/ohmage.conf
+
 ADD ./ohmage.war /usr/local/tomcat/webapps/ohmage.war
 RUN chown tomcat:tomcat -R /usr/local/tomcat/webapps
 
